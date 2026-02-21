@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tip Calculator — Trevour</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .tip-app{max-width:520px;margin:40px auto;padding:24px;background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .tip-app input,.tip-app select{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:6px}
+    .result{font-size:1.4rem;margin-top:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="margin:18px">Tip Calculator</h1>
+    <nav><a href="index.html">← Back</a></nav>
+  </header>
+
+  <main class="tip-app">
+    <img src="https://i.pinimg.com/736x/07/3c/33/073c33b410cb505f8d1e74bf5653ad83.jpg" alt="Tip calculator art" style="width:100%;border-radius:6px;margin-bottom:12px">
+
+    <label>Bill Amount (USD)</label>
+    <input id="bill" type="number" placeholder="e.g. 45.50" min="0" step="0.01">
+
+    <label>Tip Percentage</label>
+    <select id="tipPercent">
+      <option value="5">5%</option>
+      <option value="10">10%</option>
+      <option value="15" selected>15%</option>
+      <option value="20">20%</option>
+      <option value="25">25%</option>
+    </select>
+
+    <label>Split Between (people)</label>
+    <input id="people" type="number" min="1" value="1">
+
+    <button id="calcBtn" style="padding:10px 14px;border-radius:6px;border:none;background:#2c3e50;color:#fff;margin-top:8px">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </main>
+
+  <script>
+    const billEl = document.getElementById('bill');
+    const tipEl = document.getElementById('tipPercent');
+    const peopleEl = document.getElementById('people');
+    const resEl = document.getElementById('result');
+    document.getElementById('calcBtn').addEventListener('click', () => {
+      const bill = parseFloat(billEl.value) || 0;
+      const tipPct = parseFloat(tipEl.value) || 0;
+      const people = Math.max(1, parseInt(peopleEl.value) || 1);
+      const tipTotal = bill * (tipPct/100);
+      const total = bill + tipTotal;
+      const perPerson = total / people;
+      resEl.innerHTML = `Tip: $${tipTotal.toFixed(2)} — Total: $${total.toFixed(2)} — Per person: $${perPerson.toFixed(2)}`;
+    });
+  </script>
+</body>
+</html>
